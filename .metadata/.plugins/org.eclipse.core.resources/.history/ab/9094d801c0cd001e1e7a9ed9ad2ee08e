@@ -1,0 +1,5 @@
+package org.xindus.exception;
+
+public class IdNotFoundException extends Exception {
+
+}

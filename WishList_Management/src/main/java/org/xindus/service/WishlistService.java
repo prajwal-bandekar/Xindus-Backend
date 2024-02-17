@@ -11,6 +11,7 @@ import org.xindus.dao.WishlistDao;
 import org.xindus.entity.ResponseStructure;
 import org.xindus.entity.User;
 import org.xindus.entity.Wishlist;
+import org.xindus.exception.IdNotFoundException;
 
 
 @Service
@@ -22,8 +23,8 @@ public class WishlistService {
 	private UserDao uDao;
 	
 	//POST
-	public ResponseEntity<ResponseStructure<Wishlist>> saveWishlist(Wishlist p, int UserID){
-		Optional<User> recUser = uDao.findUserById(UserID);
+	public ResponseEntity<ResponseStructure<Wishlist>> saveWishlist(Wishlist p, int uID){
+		Optional<User> recUser = uDao.findUserById(uID);
 		ResponseStructure<Wishlist> structure = new ResponseStructure<>();
 		if(recUser.isPresent()) {
 			
@@ -39,12 +40,12 @@ public class WishlistService {
 			return new ResponseEntity<ResponseStructure<Wishlist>>(structure, HttpStatus.CREATED);
 		}
 //		Add Custom Exceptions later here, like User not found kind
-		throw null;
+		throw new IdNotFoundException();
 	}
 	
 	//PUT 
-	public ResponseEntity<ResponseStructure<Wishlist>> updateWishlist(Wishlist p,int UserID){
-		Optional<User> recUser = uDao.findUserById(UserID);
+	public ResponseEntity<ResponseStructure<Wishlist>> updateWishlist(Wishlist p,int uID){
+		Optional<User> recUser = uDao.findUserById(uID);
 		ResponseStructure<Wishlist> structure = new ResponseStructure<>();
 		if(recUser.isPresent()) {
 			
@@ -56,8 +57,8 @@ public class WishlistService {
 			structure.setStatusCode(HttpStatus.ACCEPTED.value());
 			return new ResponseEntity<ResponseStructure<Wishlist>>(structure, HttpStatus.ACCEPTED);
 		}
-//		Add Exceptions here
-		throw null;
+
+		throw new IdNotFoundException();
 	}
 	
 	//GET
@@ -70,12 +71,9 @@ public class WishlistService {
 			structure.setStatusCode(HttpStatus.OK.value());
 			return new ResponseEntity<ResponseStructure<Wishlist>>(structure, HttpStatus.OK);
 		}
-//		Add Exceptions in place of Else Statement
+
 		else {
-			structure.setData(null);
-			structure.setMessage("Wishlist Not Found");
-			structure.setStatusCode(HttpStatus.NOT_FOUND.value());
-			return new ResponseEntity<ResponseStructure<Wishlist>>(structure, HttpStatus.NOT_FOUND);
+			throw new IdNotFoundException();
 		}
 	}
 	
@@ -90,12 +88,9 @@ public class WishlistService {
 			structure.setStatusCode(HttpStatus.OK.value());
 			return new ResponseEntity<ResponseStructure<String>>(structure, HttpStatus.OK);
 		}
-//		Throw new Custom Exception here
+
 		else {
-			structure.setData(null);
-			structure.setMessage("Wishlist Not Found");
-			structure.setStatusCode(HttpStatus.NOT_FOUND.value());
-			return new ResponseEntity<ResponseStructure<String>>(structure, HttpStatus.NOT_FOUND);
+			throw new IdNotFoundException();
 		}
 	} 
 }

@@ -1,0 +1,40 @@
+package org.xindus.controller;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RestController;
+import org.xindus.entity.ResponseStructure;
+import org.xindus.entity.Wishlist;
+import org.xindus.service.WishlistService;
+
+@RestController
+public class WishlistController {
+	@Autowired
+	private WishlistService service;
+
+	@PostMapping("/Wishlist/{advisorID}")
+	public ResponseEntity<ResponseStructure<Wishlist>> saveWishlist(@RequestBody  Wishlist w, @PathVariable int advisorID){
+		return service.saveWishlist(w, advisorID);
+	}
+	
+	@PutMapping("/Wishlist/{advisorID}")
+	public ResponseEntity<ResponseStructure<Wishlist>> updateWishlist(@RequestBody  Wishlist w, @PathVariable int advisorID){
+		return service.updateWishlist(w, advisorID);
+	}
+	
+	@GetMapping("/Wishlist/{wID}")
+	public ResponseEntity<ResponseStructure<Wishlist>> findByID(@PathVariable int wID){
+		return service.findById(wID);
+	}
+
+	@DeleteMapping("/Wishlist/{wID}")
+	public ResponseEntity<ResponseStructure<String>> deleteWishlist(@PathVariable int wID){
+		return service.deleteWishlist(wID);
+	}
+}

@@ -18,22 +18,22 @@ public class UserController {
 	@Autowired
 	private UserService service;
 
-	@PostMapping("/User")
+	@PostMapping("/user")
 	public ResponseEntity<ResponseStructure<User>> saveUser(@RequestBody User u){
 		return service.saveUser(u);
 	}
 	
-	@PutMapping("/User")
-	public ResponseEntity<ResponseStructure<User>> updateUser(@RequestBody User u){
-		return service.updateUser(u);
+	@PutMapping("/user/{uID}")
+	public ResponseEntity<ResponseStructure<User>> updateUser(@RequestBody User u, @PathVariable int uID){
+		return service.updateUser(u,uID);
 	}
 	
-	@GetMapping("/User/{uID}")
+	@GetMapping("/user/{uID}")
 	public ResponseEntity<ResponseStructure<User>> findByID(@PathVariable int uID){
 		return service.findById(uID);
 	}
 
-	@DeleteMapping("/User/{uID}")
+	@DeleteMapping("/user/{uID}")
 	public ResponseEntity<ResponseStructure<String>> deleteUser(@PathVariable int uID){
 		return service.deleteUser(uID);
 	}

@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<section name="Workbench">
+	<section name="org.eclipse.ui.texteditor.FindReplaceDialog">
+		<item key="selection" value="uID"/>
+		<item key="wrap" value="true"/>
+		<item key="casesensitive" value="false"/>
+		<item key="wholeword" value="false"/>
+		<item key="incremental" value="false"/>
+		<item key="isRegEx" value="false"/>
+		<list key="findhistory">
+			<item value="advisorID"/>
+			<item value="portfolioID"/>
+			<item value="dao"/>
+			<item value="ProductID"/>
+			<item value="Product s"/>
+			<item value="Security"/>
+			<item value="WishlistID"/>
+			<item value="Wishlist p"/>
+			<item value="Portfolio"/>
+			<item value="UserID"/>
+			<item value="User a"/>
+			<item value="Advisor"/>
+			<item value="pDao"/>
+			<item value="sDao"/>
+			<item value="wishlistID"/>
+		</list>
+		<list key="replacehistory">
+			<item value="uID"/>
+			<item value="pID"/>
+			<item value="uDao"/>
+			<item value="Product p"/>
+			<item value="Product"/>
+			<item value="wID"/>
+			<item value=" Wishlist w"/>
+			<item value="Wishlist"/>
+			<item value="User u"/>
+			<item value="User"/>
+			<item value="wDao"/>
+			<item value="Wishlist w"/>
+			<item value="pDao"/>
+			<item value=" User u"/>
+		</list>
+	</section>
+	<section name="org.eclipse.ui.texteditor.FindReplaceDialog_dialogBounds">
+		<item key="DIALOG_X_ORIGIN" value="166"/>
+		<item key="DIALOG_Y_ORIGIN" value="153"/>
+		<item key="DIALOG_WIDTH" value="367"/>
+		<item key="DIALOG_HEIGHT" value="410"/>
+		<item key="DIALOG_FONT_NAME" value="1|Segoe UI|9.0|0|WINDOWS|1|-12|0|0|0|400|0|0|0|1|0|0|0|0|Segoe UI"/>
+	</section>
+</section>

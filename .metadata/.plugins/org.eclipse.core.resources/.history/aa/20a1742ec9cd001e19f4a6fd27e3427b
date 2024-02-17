@@ -1,0 +1,102 @@
+package org.xindus.service;
+
+import java.util.Optional;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Service;
+import org.xindus.dao.UserDao;
+import org.xindus.dao.WishlistDao;
+import org.xindus.entity.ResponseStructure;
+import org.xindus.entity.User;
+import org.xindus.entity.Wishlist;
+import org.xindus.exception.IdNotFoundException;
+
+
+@Service
+public class WishlistService {
+	@Autowired
+	private WishlistDao wDao;
+	
+	@Autowired
+	private UserDao uDao;
+	
+	//POST
+	public ResponseEntity<ResponseStructure<Wishlist>> saveWishlist(Wishlist p, int UserID){
+		Optional<User> recUser = uDao.findUserById(UserID);
+		ResponseStructure<Wishlist> structure = new ResponseStructure<>();
+		if(recUser.isPresent()) {
+			
+			User a = recUser.get();
+			a.getWishlists().add(p);
+			p.setUser(recUser.get());
+			uDao.updateUser(recUser.get());
+			wDao.saveWishlist(p);
+			
+			structure.setData(p);
+			structure.setMessage("Wishlist Added Succesfully");
+			structure.setStatusCode(HttpStatus.CREATED.value());
+			return new ResponseEntity<ResponseStructure<Wishlist>>(structure, HttpStatus.CREATED);
+		}
+//		Add Custom Exceptions later here, like User not found kind
+		throw new IdNotFoundException();
+	}
+	
+	//PUT 
+	public ResponseEntity<ResponseStructure<Wishlist>> updateWishlist(Wishlist p,int UserID){
+		Optional<User> recUser = uDao.findUserById(UserID);
+		ResponseStructure<Wishlist> structure = new ResponseStructure<>();
+		if(recUser.isPresent()) {
+			
+			p.setUser(recUser.get());
+			wDao.updateWishlist(p);
+			
+			structure.setData(p);
+			structure.setMessage("Wishlist Updated Succesfully");
+			structure.setStatusCode(HttpStatus.ACCEPTED.value());
+			return new ResponseEntity<ResponseStructure<Wishlist>>(structure, HttpStatus.ACCEPTED);
+		}
+//		Add Exceptions here
+		throw null;
+	}
+	
+	//GET
+	public ResponseEntity<ResponseStructure<Wishlist>> findById(int WishlistId){
+		ResponseStructure<Wishlist> structure = new ResponseStructure<>();
+		Optional<Wishlist> recWishlist = wDao.findWishlistById(WishlistId);
+		if(recWishlist.isPresent()) {
+			structure.setMessage("Wishlist Found Successfully");
+			structure.setData(recWishlist.get());
+			structure.setStatusCode(HttpStatus.OK.value());
+			return new ResponseEntity<ResponseStructure<Wishlist>>(structure, HttpStatus.OK);
+		}
+//		Add Exceptions in place of Else Statement
+		else {
+			structure.setData(null);
+			structure.setMessage("Wishlist Not Found");
+			structure.setStatusCode(HttpStatus.NOT_FOUND.value());
+			return new ResponseEntity<ResponseStructure<Wishlist>>(structure, HttpStatus.NOT_FOUND);
+		}
+	}
+	
+	//DELETE - /delete/{Wishlist_id}
+	public ResponseEntity<ResponseStructure<String>> deleteWishlist(int WishlistID){
+		ResponseStructure<String> structure = new ResponseStructure<>();
+		Optional<Wishlist> recWishlist = wDao.findWishlistById(WishlistID);
+		if(recWishlist.isPresent()) {
+			wDao.deleteWishlist(WishlistID);
+			structure.setMessage("Task Executed");
+			structure.setData("Wishlist Deleted Succesfully");		
+			structure.setStatusCode(HttpStatus.OK.value());
+			return new ResponseEntity<ResponseStructure<String>>(structure, HttpStatus.OK);
+		}
+//		Throw new Custom Exception here
+		else {
+			structure.setData(null);
+			structure.setMessage("Wishlist Not Found");
+			structure.setStatusCode(HttpStatus.NOT_FOUND.value());
+			return new ResponseEntity<ResponseStructure<String>>(structure, HttpStatus.NOT_FOUND);
+		}
+	} 
+}

@@ -1,0 +1,7 @@
+package org.xindus.config;
+
+import org.springframework.security.core.userdetails.UserDetails;
+
+public class UserToUserDetails implements UserDetails{
+
+}
