@@ -1,0 +1,5 @@
+package org.xindus.dao;
+
+public class UserDao {
+
+}

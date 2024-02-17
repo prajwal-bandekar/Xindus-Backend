@@ -1,0 +1,28 @@
+package org.xindus.dao;
+
+import java.util.Optional;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.xindus.entity.User;
+import org.xindus.repository.UserRepository;
+
+public class UserDao {
+	@Autowired
+	private UserRepository aRepo;
+	
+	public User saveUser( User u) {
+		return aRepo.save(u);
+	}
+	
+	public User updateUser( User u) {
+		return aRepo.save(u);
+	}
+	
+	public Optional<User> findUserById(int UserID) {
+		return aRepo.findById(UserID);
+	}
+	
+	public void deleteUser(int UserID) {
+		aRepo.deleteById(UserID);
+	}
+}

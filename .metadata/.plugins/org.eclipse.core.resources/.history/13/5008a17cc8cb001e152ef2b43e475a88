@@ -1,0 +1,5 @@
+package org.xindus.entity;
+
+public class User {
+
+}

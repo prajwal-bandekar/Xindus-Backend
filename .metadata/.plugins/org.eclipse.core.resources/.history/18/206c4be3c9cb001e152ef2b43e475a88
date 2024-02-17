@@ -1,0 +1,15 @@
+package org.xindus.entity;
+
+import jakarta.persistence.Entity;
+
+@Entity
+public class Product {
+	
+	private int pID;
+	private String name;
+	private double rating;
+	private double price;
+	private String url;
+	private String imageURL;
+
+}

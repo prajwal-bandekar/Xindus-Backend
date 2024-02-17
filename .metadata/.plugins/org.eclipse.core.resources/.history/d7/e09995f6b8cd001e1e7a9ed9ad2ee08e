@@ -1,0 +1,7 @@
+package org.xindus.entity;
+
+public class ResponseStructure<T> {
+	private T Data;
+	private String message;
+	private int statusCode;
+}

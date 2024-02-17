@@ -1,0 +1,28 @@
+package org.xindus.dao;
+
+import java.util.Optional;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.xindus.entity.Product;
+import org.xindus.repository.ProductRepository;
+
+public class ProductDao {
+	@Autowired
+	private ProductRepository pRepo;
+	
+	public Product saveProduct(Product p) {
+		return pRepo.save(p);
+	}
+	
+	public Product updateProduct(Product p) {
+		return pRepo.save(p);
+	}
+	
+	public Optional<Product> findProductById(int ProductID) {
+		return pRepo.findById(ProductID);
+	}
+	
+	public void deleteProduct(int ProductID) {
+		pRepo.deleteById(ProductID);
+	}
+}

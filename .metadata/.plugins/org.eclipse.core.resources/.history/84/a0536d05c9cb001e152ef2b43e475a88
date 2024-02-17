@@ -1,0 +1,11 @@
+package org.xindus.entity;
+
+import jakarta.persistence.Entity;
+
+@Entity
+public class Wishlist {
+
+	private int wID;
+	private String name;
+	private String description;
+}

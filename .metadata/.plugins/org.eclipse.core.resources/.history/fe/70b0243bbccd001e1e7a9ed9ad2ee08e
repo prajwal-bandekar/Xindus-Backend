@@ -1,0 +1,99 @@
+package org.xindus.service;
+
+import java.util.Optional;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Service;
+import org.xindus.dao.ProductDao;
+import org.xindus.dao.WishlistDao;
+import org.xindus.entity.Product;
+import org.xindus.entity.ResponseStructure;
+import org.xindus.entity.Wishlist;
+
+
+@Service
+public class ProductService {
+	@Autowired
+	private ProductDao wDao;
+
+	@Autowired
+	private WishlistDao wDao;
+	
+	//POST
+	public ResponseEntity<ResponseStructure<Product>> saveProduct(Product p, int wID){
+		ResponseStructure<Product> structure = new ResponseStructure<>();
+		Optional<Wishlist> recWishlist = wDao.findProductById(wID);
+		if(recWishlist.isPresent()) {
+			
+			Wishlist p = recWishlist.get();
+			p.getSecurities().add(s);
+			s.setWishlist(p);
+			wDao.updateWishlist(p);
+			wDao.saveProduct(s);	
+			
+			structure.setData(s);
+			structure.setMessage("Product Account Created Succesfully");
+			structure.setStatusCode(HttpStatus.CREATED.value());
+			return new ResponseEntity<ResponseStructure<Product>>(structure, HttpStatus.CREATED);
+		}
+		throw null;
+	}
+	
+	//PUT 
+	public ResponseEntity<ResponseStructure<Product>> updateProduct(Product p, int wID){
+		ResponseStructure<Product> structure = new ResponseStructure<>();
+		Optional<Wishlist> recWishlist = wDao.findWishlistById(wID);
+		if(recWishlist.isPresent()) {
+			Wishlist p = recWishlist.get();
+			s.setWishlist(p);
+			wDao.updateWishlist(p);
+			wDao.updateProduct(s);
+			
+			structure.setData(s);
+			structure.setMessage("Product Details Updated Succesfully");
+			structure.setStatusCode(HttpStatus.ACCEPTED.value());
+			return new ResponseEntity<ResponseStructure<Product>>(structure, HttpStatus.ACCEPTED);
+		}
+		throw null;
+	}
+	
+	//GET
+	public ResponseEntity<ResponseStructure<Product>> findById(int ProductID){
+		ResponseStructure<Product> structure = new ResponseStructure<>();
+		Optional<Product> recProduct = wDao.findProductById(ProductID);
+		if(recProduct.isPresent()) {
+			structure.setMessage("Product Found Successfully");
+			structure.setData(recProduct.get());
+			structure.setStatusCode(HttpStatus.OK.value());
+			return new ResponseEntity<ResponseStructure<Product>>(structure, HttpStatus.OK);
+		}
+		else {
+			structure.setData(null);
+			structure.setMessage("Product Not Found");
+			structure.setStatusCode(HttpStatus.NOT_FOUND.value());
+			return new ResponseEntity<ResponseStructure<Product>>(structure, HttpStatus.NOT_FOUND);
+		}
+	}
+	
+	//DELETE - /delete/{Wishlist_id}
+	public ResponseEntity<ResponseStructure<String>> deleteProduct(int ProductID){
+		ResponseStructure<String> structure = new ResponseStructure<>();
+		Optional<Product> recProduct = wDao.findProductById(ProductID);
+		if(recProduct.isPresent()) {
+			wDao.deleteProduct(ProductID);
+			
+			structure.setMessage("Task Executed");
+			structure.setData("Product Deleted Succesfully");		
+			structure.setStatusCode(HttpStatus.OK.value());
+			return new ResponseEntity<ResponseStructure<String>>(structure, HttpStatus.OK);
+		}
+		else {
+			structure.setData(null);
+			structure.setMessage("Product Not Found");
+			structure.setStatusCode(HttpStatus.NOT_FOUND.value());
+			return new ResponseEntity<ResponseStructure<String>>(structure, HttpStatus.NOT_FOUND);
+		}
+	} 
+}

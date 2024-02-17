@@ -1,0 +1,14 @@
+package org.xindus.entity;
+
+import jakarta.persistence.Entity;
+
+@Entity
+public class User {
+	
+	private int uID;
+	private String name;
+	private String email;
+	private long phone;
+	private String password;
+
+}

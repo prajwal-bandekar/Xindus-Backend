@@ -1,0 +1,33 @@
+package org.xindus.dao;
+
+import java.util.Optional;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.xindus.entity.Wishlist;
+import org.xindus.repository.WishlistRepository;
+
+public class WishlistDao {
+	@Autowired
+	private WishlistRepository pRepo;
+	
+	public Wishlist saveWishlist(Wishlist p) {
+		return pRepo.save(p);
+	}
+	
+	public Wishlist updateWishlist(Wishlist p) {
+		return pRepo.save(p);
+	}
+	
+	public Optional<Wishlist> findWishlistById(int WishlistID) {
+		return pRepo.findById(WishlistID);
+	}
+	
+	public boolean deleteWishlist(int WishlistID) {
+		Optional<Wishlist> recPort = findWishlistById(WishlistID);
+		if(recPort.isPresent()) {
+			pRepo.delete(recPort.get());
+			return true;
+		}
+		return false;
+}
+	}

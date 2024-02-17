@@ -1,0 +1,41 @@
+package org.xindus.entity;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
+import lombok.Data;
+
+@Entity
+@Data
+public class Product {
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private int pID;
+	
+	@Column(nullable =false, unique=true)
+	private String pname;
+	
+	@Column(nullable =false)
+	private double rating;
+	
+	@Column(nullable =false)
+	private double price;
+	
+	@Column(nullable =false)
+	private String url;
+	
+	@Column(nullable =false)
+	private String imageURL;
+	
+	@ManyToOne
+	@JoinColumn(name="wID")
+	@JsonIgnore
+	private Wishlist wishlist;
+
+}
