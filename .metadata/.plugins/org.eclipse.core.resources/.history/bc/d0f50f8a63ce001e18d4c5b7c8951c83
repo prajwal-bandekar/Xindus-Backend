@@ -1,0 +1,5 @@
+package org.xindus.repository;
+
+public class UserRepositoryTest {
+
+}

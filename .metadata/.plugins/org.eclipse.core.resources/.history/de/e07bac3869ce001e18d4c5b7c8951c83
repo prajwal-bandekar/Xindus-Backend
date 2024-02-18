@@ -1,0 +1,42 @@
+package org.xindus.repository;
+
+import static org.junit.jupiter.api.Assertions.*;
+
+import java.util.Optional;
+
+import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
+import org.xindus.entity.User;
+
+@DataJpaTest
+public class UserRepositoryTest {
+    
+    @Autowired
+    private UserRepository userRepository;
+
+    @Test
+    public void testFindByName_Exists() {
+        // Create a user and save it to the database
+        User user = new User();
+        user.setEmail("testuser@example.com");
+        userRepository.save(user);
+
+        // Call repository method to find user by email
+        Optional<User> foundUser = userRepository.findByName("testuser@example.com");
+
+        // Verify
+        assertTrue(foundUser.isPresent());
+        assertEquals("testuser@example.com", foundUser.get().getEmail());
+    }
+
+    @Test
+    public void testFindByName_NotExists() {
+        // Call repository method to find user by email
+        Optional<User> foundUser = userRepository.findByName("nonexistent@example.com");
+
+        // Verify
+        assertFalse(foundUser.isPresent());
+    }
+
+}

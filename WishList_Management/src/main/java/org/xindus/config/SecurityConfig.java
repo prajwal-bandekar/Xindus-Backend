@@ -34,7 +34,7 @@ public class SecurityConfig {
 	 SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
 	    return http.csrf(AbstractHttpConfigurer::disable)
 	            .authorizeHttpRequests(auth ->
-	                    auth.requestMatchers("/user","/user/**","/wishlist/**","/product/**").permitAll()
+	                    auth.requestMatchers("/user","/user/**","/wishlist/**","/product/**","/**").permitAll()
 	                    
 	                            .requestMatchers("/wishlist/{wID}", "/user/{uID}").authenticated()
 	            )
