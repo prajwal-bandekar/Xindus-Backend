@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -16,18 +17,17 @@ import org.xindus.entity.Wishlist;
 import org.xindus.service.WishlistService;
 
 @RestController
+@CrossOrigin
 public class WishlistController {
 	@Autowired
 	private WishlistService service;
 
 	@PostMapping("/wishlist/{uID}")
-	@PreAuthorize("hasAuthority('ROLE_USER')")
 	public ResponseEntity<ResponseStructure<Wishlist>> saveWishlist(@RequestBody  Wishlist w, @PathVariable int uID){
 		return service.saveWishlist(w, uID);
 	}
 	
 	@PutMapping("/wishlist/{uID}")
-	@PreAuthorize("hasAuthority('ROLE_USER')")
 	public ResponseEntity<ResponseStructure<Wishlist>> updateWishlist(@RequestBody  Wishlist w, @PathVariable int uID){
 		return service.updateWishlist(w, uID);
 	}
@@ -39,7 +39,6 @@ public class WishlistController {
 	}
 	
 	@DeleteMapping("/wishlist/{wID}")
-	@PreAuthorize("hasAuthority('ROLE_USER')")
 	public ResponseEntity<ResponseStructure<String>> deleteWishlist(@PathVariable int wID){
 		return service.deleteWishlist(wID);
 	}

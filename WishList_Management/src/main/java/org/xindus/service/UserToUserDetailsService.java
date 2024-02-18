@@ -18,11 +18,11 @@ public class UserToUserDetailsService implements UserDetailsService {
 	private UserRepository repository;
 	
 	@Override
-	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-	Optional<User> user = repository.findByName(username);
+	public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
+	Optional<User> user = repository.findByName(email);
 	
 	return user.map(UserToUserDetails:: new)
-	.orElseThrow(() -> new UsernameNotFoundException("Wrong Email Entered " + username));
+	.orElseThrow(() -> new UsernameNotFoundException("Wrong Email Entered " + email));
 	}
 
 }

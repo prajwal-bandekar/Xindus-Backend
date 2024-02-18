@@ -25,8 +25,8 @@ import org.xindus.service.UserToUserDetailsService;
 @EnableMethodSecurity
 public class SecurityConfig {
 
-	@Bean
-	UserDetailsService userDetailsService() {
+    @Bean
+    UserDetailsService userDetailsService() {
 		return new UserToUserDetailsService();
 	}
 	
@@ -34,11 +34,11 @@ public class SecurityConfig {
 	 SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
 	    return http.csrf(AbstractHttpConfigurer::disable)
 	            .authorizeHttpRequests(auth ->
-	                    auth.requestMatchers("/").permitAll()
+	                    auth.requestMatchers("/user","/user/**","/wishlist/**","/product/**").permitAll()
 	                    
-	                            .requestMatchers("/wishlist/**").authenticated()
+	                            .requestMatchers("/wishlist/{wID}", "/user/{uID}").authenticated()
 	            )
-	            .formLogin(Customizer.withDefaults()).build();
+	            .httpBasic(Customizer.withDefaults()).build();
 	    		
 	}
 	

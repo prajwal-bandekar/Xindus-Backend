@@ -1,0 +1,40 @@
+package org.xindus.controller;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RestController;
+import org.xindus.entity.Product;
+import org.xindus.entity.ResponseStructure;
+import org.xindus.service.ProductService;
+
+@RestController
+public class ProdcutController {
+	@Autowired
+	private ProductService service;
+
+	@PostMapping("/product/{wID}")
+	public ResponseEntity<ResponseStructure<Product>> saveProduct(@RequestBody Product p, @PathVariable int wID){
+		return service.saveProduct(p, wID);
+	}
+	
+	@PutMapping("/product/{wID}")
+	public ResponseEntity<ResponseStructure<Product>> updateProduct(@RequestBody Product p, @PathVariable int wID){
+		return service.updateProduct(p, wID);
+	}
+	
+	@GetMapping("/product/{pID}")
+	public ResponseEntity<ResponseStructure<Product>> findByID(@PathVariable int pID){
+		return service.findById(pID);
+	}
+
+	@DeleteMapping("/product/{pID}")
+	public ResponseEntity<ResponseStructure<String>> deleteProduct(@PathVariable int pID){
+		return service.deleteProduct(pID);
+	}
+}
