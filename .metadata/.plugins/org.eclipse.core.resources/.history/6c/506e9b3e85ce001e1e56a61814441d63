@@ -1,0 +1,29 @@
+package org.xindus.repository;
+
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
+import org.xindus.entity.User;
+
+@DataJpaTest
+public class UseRepositoryTest {
+
+	@Autowired
+	private UserRepository uRepo;
+	
+	User user;
+	
+	@BeforeEach
+	void setUp() {
+		
+	}
+	
+	@AfterEach
+	void tearDown() {
+		user = new User(1, "Prajwal", "prajwal@gmail.com", 784596213, "Jumanji", "ROLE_USER", null);
+		
+	}
+	
+}

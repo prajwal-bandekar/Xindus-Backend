@@ -23,11 +23,13 @@ public class WishlistController {
 	private WishlistService service;
 
 	@PostMapping("/wishlist/{uID}")
+	@PreAuthorize("hasAuthority('ROLE_USER')")
 	public ResponseEntity<ResponseStructure<Wishlist>> saveWishlist(@RequestBody  Wishlist w, @PathVariable int uID){
 		return service.saveWishlist(w, uID);
 	}
 	
 	@PutMapping("/wishlist/{uID}")
+	@PreAuthorize("hasAuthority('ROLE_USER')")
 	public ResponseEntity<ResponseStructure<Wishlist>> updateWishlist(@RequestBody  Wishlist w, @PathVariable int uID){
 		return service.updateWishlist(w, uID);
 	}
@@ -39,6 +41,7 @@ public class WishlistController {
 	}
 	
 	@DeleteMapping("/wishlist/{wID}")
+	@PreAuthorize("hasAuthority('ROLE_USER')")
 	public ResponseEntity<ResponseStructure<String>> deleteWishlist(@PathVariable int wID){
 		return service.deleteWishlist(wID);
 	}

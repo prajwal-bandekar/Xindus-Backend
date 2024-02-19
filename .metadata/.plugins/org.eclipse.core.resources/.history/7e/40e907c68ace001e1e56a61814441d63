@@ -1,0 +1,32 @@
+package org.xindus.repository;
+
+import static org.assertj.core.api.Assertions.assertThat;
+
+import java.util.Optional;
+import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
+import org.xindus.entity.User;
+
+@DataJpaTest
+public class UseRepositoryTest {
+
+	@Autowired
+	private UserRepository uRepo;
+	
+	
+   
+	
+	
+	@Test
+	void testFindByName_Found() {
+//		Creation of Object
+		User user = new User(1, "Prajwal", "prajwal@gmail.com", 784596213, "Jumanji", "ROLE_USER", null);
+		uRepo.save(user);
+//		Test
+	Optional<User> userEmail = uRepo.findByName("prajwal@gmail.com");
+	assertThat(userEmail.get().getuID()).isEqualTo(user.getuID());
+	assertThat(userEmail.get().getPassword()).isEqualTo(user.getPassword());
+	}
+	
+}
